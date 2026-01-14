@@ -1,0 +1,50 @@
+import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+print("=== Server Queue Performance Model ===")
+print("Differential equation: dx/dt = λ − μx")
+print("This models the number of requests in a server queue over time.\n")
+
+
+lam = float(input("Enter request arrival rate λ (requests/sec): "))
+mu = float(input("Enter service efficiency μ (1/sec): "))
+x0 = float(input("Enter initial queue size x(0) (requests): "))
+t_end = float(input("Enter simulation time (seconds): "))
+
+def queue_model(t, x):
+    return lam - mu * x
+
+t_eval = np.linspace(0, t_end, 500)
+
+solution = solve_ivp(
+    queue_model,
+    (0, t_end),
+    [x0],
+    t_eval=t_eval,
+    rtol=1e-6,
+    atol=1e-8
+)
+
+x_ss = lam / mu
+
+plt.plot(solution.t, solution.y[0], label="Queue Size x(t) (requests)")
+plt.axhline(x_ss, linestyle="--", color="red", label=f"Steady-State: {x_ss:.2f} requests")
+plt.xlabel("Time (seconds)")
+plt.ylabel("Queue Size (number of requests)")
+plt.title("Server Queue Performance Over Time")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print("\n=== Performance Summary ===")
+print(f"Simulation Time: 0 to {t_end} seconds")
+print(f"Initial Queue Size: {x0} requests")
+print(f"Request Arrival Rate λ: {lam} requests/sec")
+print(f"Service Efficiency μ: {mu} 1/sec")
+print(f"Computed Steady-State Queue: {x_ss:.2f} requests")
+print(f"Numerical Solver Relative Error Tolerance: 1e-6")
+print(f"Numerical Solver Absolute Error Tolerance: 1e-8")
+print("\nInterpretation: The queue will stabilize near the steady-state value. "
+      "If λ > μ * x, the queue grows (overload). If μ * x > λ, the queue shrinks (stable system).")
+
