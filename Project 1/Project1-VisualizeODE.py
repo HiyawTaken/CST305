@@ -25,7 +25,7 @@ print("=== Server Queue Performance Model ===")
 print("Differential equation: dx/dt = λ − μx")
 print("This models the number of requests in a server queue over time.\n")
 
-
+#inputs
 lam = float(input("Enter request arrival rate λ (requests/sec): "))
 mu = float(input("Enter service efficiency μ (1/sec): "))
 x0 = float(input("Enter initial queue size x(0) (requests): "))
@@ -36,6 +36,7 @@ def queue_model(t, x):
 
 t_eval = np.linspace(0, t_end, 500)
 
+#give the solution
 solution = solve_ivp(
     queue_model,
     (0, t_end),
@@ -47,6 +48,7 @@ solution = solve_ivp(
 
 x_ss = lam / mu
 
+#print and plot the solution
 plt.plot(solution.t, solution.y[0], label="Queue Size x(t) (requests)")
 plt.axhline(x_ss, linestyle="--", color="red", label=f"Steady-State: {x_ss:.2f} requests")
 plt.xlabel("Time (seconds)")
@@ -56,6 +58,7 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+#performance metrics
 print("\n=== Performance Summary ===")
 print(f"Simulation Time: 0 to {t_end} seconds")
 print(f"Initial Queue Size: {x0} requests")
