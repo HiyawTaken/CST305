@@ -1,3 +1,22 @@
+"""
+CST-305 Project 1 – Visualize ODE With SciPy
+
+Programmers: Hiyaw Ertiro, Ashton Calkins
+
+Packages Used:
+- numpy
+- scipy (scipy.integrate.solve_ivp)
+- matplotlib
+
+Approach to Implementation:
+This program models server queue performance using a first-order ordinary differential equation:
+dx/dt = λ − μx. The user provides system parameters (arrival rate, service efficiency, initial
+queue size, and simulation time). The ODE is solved numerically using SciPy’s Runge–Kutta
+solver (solve_ivp). The solution is visualized to show queue size over time, along with the
+analytically computed steady-state queue length. The results are interpreted in the context
+of system stability and overload behavior.
+"""
+
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
