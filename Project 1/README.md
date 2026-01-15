@@ -2,9 +2,25 @@ Server Queue Performance Model
 
 This program solves and visualizes a first-order ODE that models how a server queue changes over time using SciPy.
 
-Install
-
 Python 3.9 or higher is required.
+
+
+Quick Start (Recommended)
+
+This project includes a pre-configured .venv folder containing all necessary modules (numpy, scipy, matplotlib). To run the program without installing anything else, use the environment-specific launcher:
+
+Windows:
+Run this in powershell
+
+".\.venv\Scripts\python.exe .\Project1-VisualizeODE.py"
+
+MacOS:
+Run this in your Terminal:
+
+"./.venv/bin/python Project1-VisualizeODE.py"
+
+
+Manual Start
 
 Install required packages:
 
